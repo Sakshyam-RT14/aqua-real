@@ -377,16 +377,21 @@ a:hover {
   position: absolute;
   top: 18vh;
   bottom: 18vh;
-  left: clamp(1rem, 3vw, 2.2rem);
-  width: 1px;
-  background: rgba(244, 247, 248, 0.16);
+  left: clamp(2.5rem, 7vw, 5rem);
+  width: 6px;
+  border-radius: 999px;
+  background: rgba(244, 247, 248, 0.18);
+  overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(160, 200, 255, 0.12);
 }
 
 .rail__bar {
   display: block;
   width: 100%;
   height: 100%;
-  background: var(--accent);
+  border-radius: 999px;
+  background: linear-gradient(180deg, #8fd4ee, #4b9aea);
+  box-shadow: 0 0 14px rgba(143, 212, 238, 0.6);
   transform: scaleY(0);
   transform-origin: top center;
 }
@@ -976,5 +981,73 @@ a:hover {
   .features .card:nth-child(even) .icon {
     right: auto;
     left: -4rem;
+  }
+}
+/* ---------- Checkpoints: glowing blobs, no numbers ---------- */
+
+/* remove the 01-04 numbers */
+.features .card::before {
+  display: none;
+}
+
+/* hide the line-art inside each icon */
+.features .card .icon * {
+  display: none;
+}
+
+/* the icon itself becomes the glowing blob */
+.features .card .icon {
+  position: absolute;
+  top: 1.5rem;
+  right: -3.125rem;          /* keeps it centered on the line (left-side cards) */
+  width: 1.25rem;
+  height: 1.25rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #ffffff 0%, #8fd4ee 35%, #3b9be0 100%);
+  box-shadow:
+    0 0 0 6px rgba(143, 212, 238, 0.12),
+    0 0 18px 4px rgba(143, 212, 238, 0.65),
+    0 0 44px 12px rgba(59, 155, 224, 0.35);
+  animation: blob-glow 3.2s ease-in-out infinite;
+}
+
+.features .card:nth-child(even) .icon {
+  right: auto;
+  left: -3.125rem;           /* right-side cards */
+}
+
+.features .card:hover .icon {
+  transform: scale(1.15);
+}
+
+@keyframes blob-glow {
+  0%, 100% {
+    box-shadow:
+      0 0 0 6px rgba(143, 212, 238, 0.12),
+      0 0 18px 4px rgba(143, 212, 238, 0.55),
+      0 0 40px 10px rgba(59, 155, 224, 0.3);
+  }
+  50% {
+    box-shadow:
+      0 0 0 9px rgba(143, 212, 238, 0.16),
+      0 0 26px 7px rgba(143, 212, 238, 0.8),
+      0 0 56px 16px rgba(59, 155, 224, 0.45);
+  }
+}
+
+/* phones: line on the left, blobs sit on it */
+@media (max-width: 768px) {
+  .features .card .icon,
+  .features .card:nth-child(even) .icon {
+    right: auto;
+    left: -3.125rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .features .card .icon {
+    animation: none;
   }
 }
