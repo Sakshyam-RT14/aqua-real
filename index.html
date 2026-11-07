@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Aqua Real is a Nepali brand delivering clean 20-liter water jars at an affordable price across Kathmandu Valley. 25 years of service. Check if we serve your area."
+    />
+    <meta name="theme-color" content="#0b1316" />
+    <title>Aqua Real — 20-Liter Water Jars, Kathmandu Valley</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Hind:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230b1316'/%3E%3Cpath d='M10 8h12M9 11h14v14H9z' fill='none' stroke='%238fd4ee' stroke-width='1.6'/%3E%3C/svg%3E"
+    />
+  </head>
+  <body>
+    <a class="skip" href="#content">Skip to content</a>
+
+    <div class="loader" id="loader" role="status" aria-live="polite">
+      <div class="loader__panel">
+        <p class="loader__mark">Aqua Real</p>
+        <p class="loader__label">Getting things ready</p>
+        <div
+          class="loader__track"
+          id="loader-progress"
+          role="progressbar"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          aria-valuenow="0"
+          aria-label="Loading progress"
+        >
+          <span class="loader__bar" id="loader-bar"></span>
+        </div>
+        <p class="loader__pct" id="loader-pct">0%</p>
+      </div>
+    </div>
+
+    <header class="nav" id="top">
+      <div class="nav__inner">
+        <a class="logo" href="#top">Aqua Real</a>
+        <nav class="nav__links" aria-label="Primary">
+          
+          <a href="#features">Why us</a>
+          
+          <a href="#service-area">Coverage</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="content">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero__copy">
+          <p class="eyebrow">A Nepali brand · 25 years of service</p>
+          <h1 id="hero-title">
+            <span class="line">Pure by Nature.</span>
+            <span class="line">Premium by Choice.</span>
+          </h1>
+          <p class="lede">
+            Making clean drinking water accessible to every household.
+        <a class="scroll-hint" href="#sequence">
+          
+          <span class="scroll-hint__line" aria-hidden="true"></span>
+        </a>
+      </section>
+
+      <section
+        class="sequence"
+        id="sequence"
+        aria-label="Scroll animation of the 20-liter water jar"
+      >
+        <div class="sequence__sticky">
+          <canvas
+            id="frames"
+            class="sequence__canvas"
+            aria-label="Animated view of the Aqua Real 20-liter water jar. The frame on screen is set by scroll position."
+          ></canvas>
+          <div class="sequence__overlay">
+            <div class="rail" aria-hidden="true">
+              <span class="rail__bar" id="rail-bar"></span>
+            </div>
+            <div class="callouts" id="callouts"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section features" id="features" aria-labelledby="a href = "">
+        <div class="section__intro">
+          <p class="eyebrow">Why Aqua Real</p>
+          <h2 id="features-title">Not complicated. Just water done right.</h2>
+        </div>
+        <ul class="cards">
+          <li class="card">
+            <svg class="icon" viewBox="0 0 32 32" aria-hidden="true">
+              <path d="M11 7h10" />
+              <path d="M10 10h12v14H10z" />
+              <path d="M10 17h12" />
+            </svg>
+            <h3>The full measure</h3>
+            <p>A whole household's drinking water in one jar. Fill it, cap it, carry on.</p>
+          </li>
+          <li class="card">
+            <svg class="icon" viewBox="0 0 32 32" aria-hidden="true">
+              <path d="M16 5 26 9v8c0 6-4.2 9.4-10 11-5.8-1.6-10-5-10-11V9z" />
+              <path d="M12.5 16.5 15 19l5-6" />
+            </svg>
+            <h3>Clean and sealed</h3>
+            <p>Drinking water in a clear, food-grade jar, sealed so you can trust what you open.</p>
+          </li>
+          <li class="card">
+            <svg class="icon" viewBox="0 0 32 32" aria-hidden="true">
+              <path d="M6 6h9l11 11-9 9L6 15z" />
+              <circle cx="11" cy="11" r="1.6" />
+            </svg>
+            <h3>Fair is Fair</h3>
+            <p>Premium quality at an honest price, within reach of every family.</p>
+          </li>
+          <li class="card">
+            <svg class="icon" viewBox="0 0 32 32" aria-hidden="true">
+              <rect x="6" y="8" width="20" height="18" />
+              <path d="M6 14h20" />
+              <path d="M11 5v5M21 5v5" />
+            </svg>
+            <h3>25 years of service</h3>
+            <p>A quarter-century of Nepali families counting on us for their daily water.</p>
+          </li>
+        </ul>
+      </section>
+
+
+
+      <section class="section locator" id="service-area" aria-labelledby="locator-title">
+        <div class="section__intro">
+          <p class="eyebrow">Coverage</p>
+          <h2 id="locator-title">Do we serve your area?</h2>
+          <p class="section__lede">
+            We serve the marked areas of Kathmandu Valley. Use your current
+            location, or tap anywhere on the map to check an address.
+          </p>
+        </div>
+
+        <div class="locator__grid">
+          <div class="locator__panel">
+            <button class="button" id="locate-btn" type="button">
+              Use my current location
+            </button>
+
+            <div class="locator__result" id="locator-result" role="status" aria-live="polite" data-state="idle">
+              <p class="locator__title" id="result-title">Check your area</p>
+              <p class="locator__text" id="result-text">
+                Press the button above, or tap a spot on the map.
+              </p>
+            </div>
+
+            
+
+            <p class="locator__note">
+              Your location is checked in your browser only. It is not stored or sent to us.
+            </p>
+          </div>
+
+          <div
+            class="locator__map"
+            id="map"
+            role="application"
+            aria-label="Map of the areas of Kathmandu Valley where Aqua Real delivers"
+          ></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+        
+        <p>A Nepali brand · 25 years of service · © 2026 Aqua Real</p>
+
+    </footer>
+
+    <noscript>
+      <p class="noscript">
+        Aqua Real needs JavaScript for the jar animation and the service-area
+        map. The written sections above are still available.
+      </p>
+    </noscript>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
+    <script src="js/service-areas.js" defer></script>
+    <script src="js/main.js" defer></script>
+    <script src="js/locator.js" defer></script>
+  </body>
+</html>
