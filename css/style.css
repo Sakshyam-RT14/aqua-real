@@ -363,7 +363,6 @@ a:hover {
   width: 100%;
   height: 100vh;
   height: 100dvh;
-  mix-blend-mode: screen; /* dark frame background disappears into the gradient */
 }
 
 .sequence__overlay {

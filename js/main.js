@@ -12,10 +12,9 @@
 const CONFIG = {
   /** Total frames. Scroll math uses (frameCount - 1) so the last file is reachable. */
   frameCount: 240,
+  framePath: (i) => `frames/f-${String(i).padStart(3, "0")}.webp`,
+  revealAfter: 30,
 
-  /** Folder and filename pattern. i runs from 1 through frameCount. */
-  framePath: (i) =>
-    `ezgif-6b3d64072876ebe2-jpg/ezgif-frame-${String(i).padStart(3, "0")}.jpg`,
 
   /** Height of the sticky scroll film on desktop. */
   scrollHeightVh: 500,
@@ -30,10 +29,10 @@ const CONFIG = {
    * How much of the remaining scroll distance to close each 60fps frame.
    * 1 snaps to the scrollbar. Lower values ease playback so it feels less jumpy.
    */
-  easing: 0.12,
+  easing: 0.18,
 
   /** How many frames to request at once while preloading. */
-  batchSize: 12,
+  batchSize: 24,
 
   /** 1-based frame held still when the visitor prefers reduced motion. */
   reducedMotionFrame: 1,
@@ -73,6 +72,13 @@ const CONFIG = {
     }
   ]
 };
+let revealed = false;
+function revealOnce() {
+  if (revealed) return;
+  revealed = true;
+  reveal();
+}
+preload().then(revealOnce).catch(revealOnce);
 
 const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 const mobileQuery = window.matchMedia("(max-width: 768px)");
@@ -228,31 +234,38 @@ function noteLoaded() {
   loaderPct.textContent = `${percent}%`;
 }
 
+function loadOrder(total) {
+  const order = [1];
+  const seen = new Set([1]);
+  if (total > 1) { order.push(total); seen.add(total); }
+  for (let step = 16; step >= 1; step /= 2) {
+    for (let n = 1; n <= total; n += step) {
+      if (!seen.has(n)) { seen.add(n); order.push(n); }
+    }
+  }
+  return order;
+}
+
 async function preload() {
-  const first = await loadFrame(1);
-  state.frames[0] = first;
+  const order = loadOrder(CONFIG.frameCount);
+
+  state.frames[0] = await loadFrame(1);
   noteLoaded();
   state.paintDirty = true;
   renderCurrent(true);
+  revealOnce();            // show the page right away
 
-  const batchSize = Math.max(1, CONFIG.batchSize);
-  for (let start = 2; start <= CONFIG.frameCount; start += batchSize) {
-    const end = Math.min(CONFIG.frameCount, start + batchSize - 1);
-    const jobs = [];
-    for (let n = start; n <= end; n += 1) {
-      jobs.push(
-        loadFrame(n).then((image) => {
-          state.frames[n - 1] = image;
-          noteLoaded();
-          state.paintDirty = true;
-        })
-      );
+  let next = 1;
+  async function worker() {
+    while (next < order.length) {
+      const n = order[next++];
+      const image = await loadFrame(n);
+      state.frames[n - 1] = image;
+      noteLoaded();
+      state.paintDirty = true;
     }
-    await Promise.all(jobs);
-    await new Promise((resolve) => {
-      setTimeout(resolve, 0);
-    });
   }
+  await Promise.all(Array.from({ length: 6 }, worker));
 }
 
 function reveal() {
